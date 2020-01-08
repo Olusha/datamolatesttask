@@ -1,0 +1,124 @@
+$color-orange: #F2994A;
+$color-violet: #934CD6;
+
+:host {
+  display: block;
+  max-width: 1200px;
+}
+
+
+.table-row, .table-header {
+  display: flex;
+}
+
+.table-row {
+  padding: 5px;
+}
+
+.table-header {
+  background: $color-violet;
+  color: #fff;
+}
+
+.table-cell {
+  flex-basis: 25%;
+}
+
+.genre {
+  padding: 3px 7px;
+  border-radius: 20px;
+  color: #fff;
+  margin-right: 5px;
+}
+
+.genre-container {
+  display: flex;
+}
+
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.form-control {
+  background: $color-orange;
+  color: white;
+  flex-basis: 28%;
+  padding: 5px;
+
+  &::placeholder {
+    color: white;
+  }
+}
+
+.sort-container {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+
+.header-cell {
+  padding: 5px 10px 5px 5px;
+  display: flex;
+  justify-content: space-between;
+
+  .arrow {
+    cursor: pointer;
+
+    &:hover {
+      color: #F2EAFA;
+    }
+  }
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.page-size-container {
+  justify-self: flex-end;
+}
+
+.size-item {
+  padding: 5px;
+  cursor: pointer;
+
+  &.active-page-size {
+    background: $color-orange;
+    color: white;
+  }
+
+}
+
+::ng-deep {
+  .page-link {
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: black;
+    margin: 0 5px;
+  }
+
+  .page-item.active .page-link {
+    background: $color-orange;
+    border-color: $color-orange;
+  }
+
+  .page-item.disabled .page-link {
+    border: none;
+    background: none;
+  }
+
+  .page-item:last-child, .page-item:first-child  {
+    .page-link {
+      border-radius: 50%;
+    }
+  }
+
+  .pagination {
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,51 @@
+<div class="filter-container">
+  <input [ngModel]="search" placeholder="Name" class="form-control" (ngModelChange)="onSearch($event)">
+  <select [ngModel]="selectedGenreId" class="form-control" (ngModelChange)="onGenreChange($event)">
+    <option *ngFor="let option of genreOptions" [ngValue]="option.id">{{option.name}}</option>
+  </select>
+  <select [ngModel]="selectedGenreId" class="form-control" (ngModelChange)="onYearChange($event)">
+    <option *ngFor="let option of yearOptions" [ngValue]="option.id">{{option.name}}</option>
+  </select>
+</div>
+<section *ngIf="filmListData.films.length" class="table-container">
+  <div class="table-header">
+    <div class="table-cell header-cell" *ngFor="let header of tableHeaders">
+      {{header.label}}
+      <span class="sort-container">
+        <i (click)="onOrderChange(header.id, ORDER_DIRECTION.ASC)" class="fa fa-arrow-up arrow"></i>
+        <i (click)="onOrderChange(header.id, ORDER_DIRECTION.DESC)" class="fa fa-arrow-down arrow"></i>
+      </span>
+    </div>
+  </div>
+  <div class="table-body">
+    <div class="table-row" *ngFor="let film of filmListData.films">
+      <div class="table-cell">
+        {{film.name}}
+        <div class="genre-container">
+          <div class="genre" *ngFor="let genreId of film.genresId" [ngStyle]="{background: genreColorMap[genreId]}">{{genreNameMap[genreId]}} </div>
+        </div>
+      </div>
+      <div class="table-cell">{{film.season}}</div>
+      <div class="table-cell">{{film.network}}</div>
+      <div class="table-cell">{{film.premiere}}</div>
+    </div>
+  </div>
+</section>
+<div *ngIf="!filmListData.films.length">
+  No data found
+</div>
+
+<div class="pagination-container">
+  <div></div>
+  <ngb-pagination
+    *ngIf="filmListData.counter > (filters$ | async).pageSize"
+    [pageSize]="(filters$ | async).pageSize"
+    [page]="(filters$ | async).page"
+    [maxSize]="PAGINATION_CONFIG.MAX_SIZE"
+    (pageChange)="onPageChange($event)"
+    [collectionSize]="filmListData.counter">
+  </ngb-pagination>
+  <div class="page-size-container">
+    <span class="size-item" (click)="setPageSize(pageSize)" [ngClass]="{'active-page-size': pageSize === (filters$ | async).pageSize}" *ngFor="let pageSize of PAGE_SIZE_OPTIONS">{{pageSize}}</span>
+  </div>
+</div>
